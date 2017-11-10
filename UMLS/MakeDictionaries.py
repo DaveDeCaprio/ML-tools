@@ -1,4 +1,4 @@
-import cPickle as pickle
+import pickle as pickle
 
 ndc_file = '/data/ml2/jernite/UMLS2016/RXNORM_RRF/RXNSAT.RRF'
 rxcui_file = '/data/ml2/jernite/UMLS2016/MRCONSO_RXNORM.RRF'
@@ -36,11 +36,11 @@ def make_dics(ndc_file, rxcui_file, icd9_file):
 
     f.close()
     ndc_to_cui = {}
-    for ndc, rxcuis in ndc_ro_rxcui.items():
+    for ndc, rxcuis in list(ndc_ro_rxcui.items()):
         ndc_to_cui[ndc] = list(set([cui for rxcui in rxcuis
                                     for cui in rxcui_to_cui.get(rxcui, [])]))
     ndc_to_cui = dict([(ndc, cuis[0])
-                       for ndc, cuis in ndc_to_cui.items() if len(cuis) == 1])
+                       for ndc, cuis in list(ndc_to_cui.items()) if len(cuis) == 1])
     ndc_to_cui['0'] = 'UNK'
     # ICD9 to CUI
     print ('making ICD9 to CUI dic')
@@ -70,7 +70,7 @@ def map_to_cui(icd9, icd9_to_cui):
         elif p2 in icd9_to_cui:
             return icd9_to_cui[p2]
         else:
-            print 'MISSING'
+            print('MISSING')
             return []
 
 

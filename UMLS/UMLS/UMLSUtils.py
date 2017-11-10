@@ -67,7 +67,7 @@ class ConceptIndex:
    def make_ndc_mapping(self, rxnsat_file):
       indices        = self.umls_desc.rxnsat_indices
       ndc_ro_rxcui   = {}
-      f = open(rxnsat_file)
+      f = open(rxnsat_file, 'rt', encoding='UTF-8')
       for line in f:
          tab = line.strip().split('|')
          rxcui = tab[indices['RXCUI']]
